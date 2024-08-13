@@ -18,8 +18,7 @@ Return in the following JSON format
         "front":str,
         "back":str
     }
-}
+}`;
 
-`;
-
+//now we are creating our API routes 
 
