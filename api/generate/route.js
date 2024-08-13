@@ -10,4 +10,16 @@ Software design: design patterns, SOLID principles, software architecture
 System design: scalability, availability, performance, distributed systems
 Behavioral interview questions: common questions, STAR method, technical and interpersonal skills 
 
-Ensure the flashcards are clear, concise, and informative, providing explanations or examples where necessary.`;
+Ensure the flashcards are clear, concise, and informative, providing explanations or examples where necessary.
+
+Return in the following JSON format 
+{
+    "flashcards":{
+        "front":str,
+        "back":str
+    }
+}
+
+`;
+
+
