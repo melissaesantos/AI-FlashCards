@@ -33,9 +33,11 @@ export async function POST(req){
         model: "gpt-4o",
         response_format:{type: 'json_object'}
     })
+
+    // Parse the JSON response from the OpenAI API
     const flashcards = JSON.parse(completion.choices[0].message.content)
     
-//here we are returning the list of objects x
+    // Here we are returning the list of objects x (flashcards) as a JSON response
     return NextResponse.json(flashcards.flashcards)
 }
 
