@@ -1,7 +1,24 @@
-
+/* globals.css */
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
+.appBar {
+  background-color: #b184df;
+  color: white; /* Change text color to white for better contrast */
+  height: 60px; /* Adjust height as needed */
+}
+
+.title {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.loginButton, .signUpButton {
+  background-color: #b599e0;
+  color: white;
+  text-transform: uppercase;
+  margin: 0 10px; /* Add spacing between buttons */
+}

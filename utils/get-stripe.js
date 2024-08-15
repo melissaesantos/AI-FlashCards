@@ -8,3 +8,5 @@ const getStripe = () =>{
     }
     return stripePromise
 }
+
+export default getStripe
