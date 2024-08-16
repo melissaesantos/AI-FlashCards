@@ -47,5 +47,12 @@ export default function Generate() {
             ...prev,
             [id]: !prev[id],
         }))
-      }
+    }
+
+    const handleOpen =()=>{
+        setOpenI(true)
+    }
+    const handleClose =()=>{
+        setOpenI(false)
+    }
 }
