@@ -9,7 +9,7 @@
   background-color: #b599e0;
   display: flex;
   color: white; /* Change text color to white for better contrast */
-  height: 60px; /* Adjust height as needed */
+  height: 65px; /* Adjust height as needed */
 }
 
 .title {
@@ -29,8 +29,7 @@
 }
 
 .getstartedbutton{
-  background-color: #802063
-  ;
+  background-color: #802063;
   &:hover {
     background-color: #802063;
   }
