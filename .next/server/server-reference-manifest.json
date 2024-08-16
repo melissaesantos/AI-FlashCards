@@ -2,13 +2,17 @@
   "node": {
     "04ede128701addbea78438599a33f51364f42fc4": {
       "workers": {
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmelissasantos%2FDocuments%2FGitHub%2FChatsupport%2FAI-FlashCards%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%22invalidateCacheAction%22%5D%5D%5D&__client_imported__=true!",
+        "app/generate/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmelissasantos%2FDocuments%2FGitHub%2FChatsupport%2FAI-FlashCards%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%22invalidateCacheAction%22%5D%5D%5D&__client_imported__=true!",
         "app/_not-found/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmelissasantos%2FDocuments%2FGitHub%2FChatsupport%2FAI-FlashCards%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%22invalidateCacheAction%22%5D%5D%5D&__client_imported__=true!"
       },
       "layer": {
+        "app/page": "action-browser",
+        "app/generate/page": "action-browser",
         "app/_not-found/page": "action-browser"
       }
     }
   },
   "edge": {},
-  "encryptionKey": "PTChTbB722VWml8a06s/KIdpyrFBytaJKgSQIUmoWa0="
+  "encryptionKey": "rrOTHzwZUMmm+YN0C2VG0D2D+Bpnq8Dda0eJr5/K2mQ="
 }

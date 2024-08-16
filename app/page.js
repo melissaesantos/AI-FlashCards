@@ -2,7 +2,7 @@ import Image from 'next/image'
 import getStripe from '@/utils/get-stripe'
 import '@/app/globals.css';
 
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { SignedIn, SignedOut, UserButton,useUser } from '@clerk/nextjs'
 import Head from 'next/head'
 import { AppBar, Container, Toolbar, Typography, Button, Box, Grid } from '@mui/material'
 
