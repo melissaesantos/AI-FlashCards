@@ -19,8 +19,46 @@ export default function Home() {
             <Typography variant="h6" className="title">CodeCard</Typography>
           </Box>
           <SignedOut>
-            <Button sx={{ backgroundColor: '#31081F' }} variant="contained" className="loginButton">Login</Button>
-            <Button sx={{ backgroundColor: '#31081F' }} variant="contained" className="signUpButton">Sign Up</Button>
+            <Button 
+              sx={{ 
+                backgroundColor: '#5C374C', 
+                color: 'white', 
+                padding: '8px 16px', 
+                borderRadius: '20px', 
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                '&:hover': { 
+                  backgroundColor: '#802063', 
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)'
+                },
+                transition: 'all 0.3s ease',
+                margin: '0 10px'
+              }} 
+              variant="contained" 
+              className="loginButton"
+            >
+              Login
+            </Button>
+            <Button 
+              sx={{ 
+                backgroundColor: '#5C374C', 
+                color: 'white', 
+                padding: '8px 16px', 
+                borderRadius: '20px', 
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                '&:hover': { 
+                  backgroundColor: '#802063', 
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)'
+                },
+                transition: 'all 0.3s ease',
+                margin: '0 10px'
+              }} 
+              variant="contained" 
+              className="signUpButton"
+            >
+              Sign Up
+            </Button>
           </SignedOut>
           <SignedIn>
             <UserButton />

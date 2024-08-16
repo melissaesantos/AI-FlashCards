@@ -9,38 +9,52 @@
 }
 
 .appBar {
-  background-color: #985277;
+  background: linear-gradient(90deg, #985277, #b599e0);
   display: flex;
-  color: white; /* Change text color to white for better contrast */
-  height: 65px; /* Adjust height as needed */
+  color: white;
+  height: 65px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .title {
   font-weight: bold;
   text-transform: uppercase;
+  letter-spacing: 1.5px; /* Adds spacing between letters for a modern look */
 }
 
-.loginButton, .signUpButton, .getstartedbutton {
-  background-color: #5C374C;
-  &:hover {
-    background-color: #5C374C;
-  }
+.loginButton, .signUpButton {
+  background: linear-gradient(90deg, #985277, #b599e0);
   color: white;
   text-transform: uppercase;
-  margin: 0 10px; /* Add spacing between buttons */
-  
+  margin: 0 10px; /* Spacing between buttons */
+  padding: 8px 16px; /* Increased padding for better touch targets */
+  border-radius: 20px; /* Rounded corners for a softer look */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effect */
 }
 
-.getstartedbutton,.button{
-  background-color: #5C374C ;
-  &:hover {
-    background-color: #5C374C;
-  }
+.signUpButton:hover, .loginButton:hover {
+  background: linear-gradient(90deg, #985277, #b599e0); /* Darker shade on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.getstartedbutton, .button {
+  background: linear-gradient(90deg, #985277, #b599e0);
   color: white;
   text-transform: uppercase;
-  margin: 0 10px; /* Add spacing between buttons */
-  
+  margin: 0 10px; /* Spacing between buttons */
+  padding: 12px 24px; /* Slightly larger padding for emphasis */
+  font-size: 1.1rem; /* Slightly larger text for emphasis */
+  border-radius: 25px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effect */
 }
+
+.getstartedbutton:hover, .button:hover {
+  background-color: #802063; /* Darker shade on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.js","import":"Inter","arguments":[{"subsets":["latin"]}],"variableName":"inter"} ***!
   \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
