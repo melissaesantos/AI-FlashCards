@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Box, Typography, AppBar, Toolbar, Button } from '@mui/material'
-import { SignIn } from '@clerk/nextjs'
+import { SignIn, SignUp } from '@clerk/nextjs'
 import Link from 'next/link'
 import '@/app/globals.css';
 
@@ -13,7 +13,7 @@ export default function SignUpPage() {
             CodeCard
           </Typography>
           <Button sx={{ color: 'white', backgroundColor: '#5C374C', '&:hover': { backgroundColor: '#5C374C' } }}>
-            <Link href="/sign-in" passHref style={{ textDecoration: 'none' }}>
+            <Link href="/sign-up" passHref style={{ textDecoration: 'none' }}>
               <Typography component="span" sx={{ color: 'white', borderBottom: '4px solid #4A2040' }}>
                 Login
               </Typography>
@@ -36,9 +36,9 @@ export default function SignUpPage() {
         sx={{ textAlign: 'center', my: 4 }}
       >
         <Typography variant="h4" component="h1" gutterBottom sx={{ borderBottom: '4px solid #4A2040', textDecoration: 'none' }}>
-          Sign In
+          Sign Up
         </Typography>
-        <SignIn />
+       <SignUp/>
       </Box>
     </Container>
   )
