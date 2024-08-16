@@ -7,21 +7,21 @@ import '@/app/globals.css';
 export default function SignUpPage() {
   return (
     <Container maxWidth='md'>
-      <AppBar position="static" sx={{ backgroundColor: '#5C374C' }}>
+      <AppBar className='appBar' position="static" sx={{ backgroundColor: '#5C374C' }}>
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             CodeCard
           </Typography>
-          <Button sx={{ color: 'white', backgroundColor: '#5C374C', '&:hover': { backgroundColor: '#5C374C' } }}>
-            <Link href="/sign-up" passHref style={{ textDecoration: 'none' }}>
-              <Typography component="span" sx={{ color: 'white', borderBottom: '4px solid #4A2040' }}>
+          <Button className='loginButton' href='/sign-in'>
+            <Link href="/sign-in" passHref style={{ textDecoration: 'none' }}>
+              <Typography component="span" sx={{ color: 'white'}}>
                 Login
               </Typography>
             </Link>
           </Button>
-          <Button sx={{ color: 'white', backgroundColor: '#5C374C', '&:hover': { backgroundColor: '#5C374C' } }}>
+          <Button className='signUpButton'href='/sign-up'>
             <Link href="/sign-up" passHref style={{ textDecoration: 'none' }}>
-              <Typography component="span" sx={{ color: 'white', borderBottom: '4px solid #4A2040' }}>
+              <Typography component="span" sx={{ color: 'white'}}>
                 Sign Up
               </Typography>
             </Link>

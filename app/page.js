@@ -36,6 +36,7 @@ export default function Home() {
               }} 
               variant="contained" 
               className="loginButton"
+              href='/sign-in'
             >
               Login
             </Button>
@@ -56,6 +57,7 @@ export default function Home() {
               }} 
               variant="contained" 
               className="signUpButton"
+              href='/sign-up'
             >
               Sign Up
             </Button>
