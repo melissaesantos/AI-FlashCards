@@ -1,5 +1,5 @@
 'use client'
-
+import {useUser} from '@clerk/next.js'
 import { useState } from 'react'
 import {
   Container,
@@ -8,7 +8,7 @@ import {
   Typography,
   Box,
 } from '@mui/material'
-import {useUser} from '@clerk/next.js'
+
 import { writeBatch } from 'firebase/firestore'
 
 export default function Generate() {
@@ -89,5 +89,14 @@ export default function Generate() {
           alert('An error occurred while saving flashcards. Please try again.')
         }
       }
+      //SAVE FLASHCARD BUTTON
+      {flashcards.length > 0 && (
+        <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+          <Button variant="contained" color="primary" onClick={handleOpenDialog}>
+            Save Flashcards
+          </Button>
+        </Box>
+      )}
+      
 
 }
