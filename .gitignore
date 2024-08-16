@@ -1,7 +1,3 @@
 node_modules
-
-firebase.js
-
-.env.local
-
 .next
+.env.local
