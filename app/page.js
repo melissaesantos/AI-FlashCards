@@ -64,21 +64,21 @@ export default function Home() {
               <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3 }}>
                 <Typography variant='h6'>Basic Plan</Typography>
                 <Typography>Access to basic flashcard creation and study features.</Typography>
-                <Button variant="contained" sx={{ mt: 2, backgroundColor: '#802063' }}>Select</Button>
+                <Button variant="contained" className="button" sx={{ mt: 2, backgroundColor: '#802063' }}>Select</Button>
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
               <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3 }}>
                 <Typography variant='h6'>Pro Plan</Typography>
                 <Typography>Unlock advanced features like AI-powered flashcard creation.</Typography>
-                <Button variant="contained" sx={{ mt: 2, backgroundColor: '#802063' }}>Select</Button>
+                <Button className="button" variant="contained" sx={{ mt: 2, backgroundColor: '#802063' }}>Select</Button>
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
               <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3 }}>
                 <Typography variant='h6'>Enterprise Plan</Typography>
                 <Typography>Get custom solutions for large teams or organizations.</Typography>
-                <Button variant="contained" sx={{ mt: 2, backgroundColor: '#802063' }}>Select</Button>
+                <Button className="button" variant="contained" sx={{ mt: 2, backgroundColor: '#802063' }}>Select</Button>
               </Box>
             </Grid>
           </Grid>

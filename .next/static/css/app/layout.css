@@ -31,7 +31,7 @@
   
 }
 
-.getstartedbutton,.buttons{
+.getstartedbutton,.button{
   background-color: #5C374C ;
   &:hover {
     background-color: #5C374C;
