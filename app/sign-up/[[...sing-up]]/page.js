@@ -6,7 +6,7 @@ import '@/app/globals.css';
 
 export default function SignUpPage() {
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth='lg'>
       <AppBar className='appBar' position="static" sx={{ backgroundColor: '#5C374C' }}>
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
