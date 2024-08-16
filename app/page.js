@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import getStripe from '@/utils/get-stripe'
 import '@/app/globals.css';
@@ -7,6 +8,27 @@ import Head from 'next/head'
 import { AppBar, Container, Toolbar, Typography, Button, Box, Grid } from '@mui/material'
 
 export default function Home() {
+
+  const handleSubmit = async () => {
+    const checkoutSession = await fetch('/api/checkout_session', {
+      method: 'POST',
+      headers: { 
+        origin: 'http://localhost:3000', 
+      },
+    })
+    
+    const checkoutSessionJson = await checkoutSession.json()
+  
+    const stripe = await getStripe()
+    const {error} = await stripe.redirectToCheckout({
+      sessionId: checkoutSessionJson.id,
+    })
+  
+    if (error) {
+      console.warn(error.message)
+    }
+  }
+
   return (
     <>
       <Head>
@@ -115,7 +137,13 @@ export default function Home() {
                 <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Student Plan</Typography>
                 <Typography variant='h6' sx={{ fontWeight: 'bold' }}>$0 / month</Typography>
                 <Typography>Access to basic flashcard creation and study features.</Typography>
-                <Button variant="contained" sx={{ mt: 2, backgroundColor: '#802063', borderRadius: '20px', padding: '8px 16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', '&:hover': { backgroundColor: '#5C374C', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}>Select</Button>
+                <Button 
+                  variant="contained" 
+                  sx={{ mt: 2, backgroundColor: '#802063', borderRadius: '20px', padding: '8px 16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', '&:hover': { backgroundColor: '#5C374C', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}
+                  onClick={handleSubmit}
+                >
+                  Purchase Student
+                </Button>
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -123,7 +151,13 @@ export default function Home() {
                 <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Basic Plan</Typography>
                 <Typography variant='h6' sx={{ fontWeight: 'bold' }}>$5 / month</Typography>
                 <Typography>Access to basic flashcard creation and study features.</Typography>
-                <Button variant="contained" sx={{ mt: 2, backgroundColor: '#802063', borderRadius: '20px', padding: '8px 16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', '&:hover': { backgroundColor: '#5C374C', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}>Select</Button>
+                <Button 
+                  variant="contained" 
+                  sx={{ mt: 2, backgroundColor: '#802063', borderRadius: '20px', padding: '8px 16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', '&:hover': { backgroundColor: '#5C374C', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}
+                  onClick={handleSubmit}
+                >
+                  Purchase Basic
+                </Button>
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -131,7 +165,13 @@ export default function Home() {
                 <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Pro Plan</Typography>
                 <Typography variant='h6' sx={{ fontWeight: 'bold' }}>$10 / month</Typography>
                 <Typography>Unlock advanced features like AI-powered flashcard creation.</Typography>
-                <Button variant="contained" sx={{ mt: 2, backgroundColor: '#802063', borderRadius: '20px', padding: '8px 16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', '&:hover': { backgroundColor: '#5C374C', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}>Select</Button>
+                <Button 
+                  variant="contained" 
+                  sx={{ mt: 2, backgroundColor: '#802063', borderRadius: '20px', padding: '8px 16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', '&:hover': { backgroundColor: '#5C374C', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}
+                  onClick={handleSubmit}
+                >
+                  Purchase Pro
+                </Button>
               </Box>
             </Grid>
           </Grid>
