@@ -9,7 +9,8 @@
 }
 
 .appBar {
-  background-color: #b184df;
+  background-color: #b599e0;
+  display: flex;
   color: white; /* Change text color to white for better contrast */
   height: 60px; /* Adjust height as needed */
 }
@@ -19,11 +20,27 @@
   text-transform: uppercase;
 }
 
-.loginButton, .signUpButton {
+.loginButton, .signUpButton, .getstartedbutton {
   background-color: #b599e0;
+  &:hover {
+    background-color: #b599e0;
+  }
   color: white;
   text-transform: uppercase;
   margin: 0 10px; /* Add spacing between buttons */
+  
+}
+
+.getstartedbutton{
+  background-color: #802063
+  ;
+  &:hover {
+    background-color: #802063;
+  }
+  color: white;
+  text-transform: uppercase;
+  margin: 0 10px; /* Add spacing between buttons */
+  
 }
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.js","import":"Inter","arguments":[{"subsets":["latin"]}],"variableName":"inter"} ***!
