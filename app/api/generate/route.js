@@ -20,22 +20,33 @@ Return in the following JSON format
     }]
 }`;
 
-//now we are creating our API routes 
-export async function POST(req){
-    const openai= OpenAI()
-    const data = await req.text
+// Initialize OpenAI with API Key from environment variables
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-    const completion = await openai.chat.completion.create({
-        messages: [
-            {role: 'system', content: systemPrompt},
-            {role:'user', content: data},
-        ],
-        model: "gpt-4o",
-        response_format:{type: 'json_object'}
-    })
-    const flashcards = JSON.parse(completion.choices[0].message.content)
-    
-//here we are returning the list of objects x
-    return NextResponse.json(flashcards.flashcards)
+// Create API route
+export async function POST(req) {
+  try {
+    // Get the request text
+    const data = await req.text();
+
+    // Make request to OpenAI API
+    const completion = await openai.chat.completions.create({
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: data },
+      ],
+      model: 'gpt-4o',
+    });
+
+    // Parse response
+    const flashcards = JSON.parse(completion.choices[0].message.content);
+
+    // Return the flashcards in the expected format
+    return NextResponse.json(flashcards);
+  } catch (error) {
+    console.error('Error generating flashcards:', error);
+    return NextResponse.error();
+  }
 }
-
