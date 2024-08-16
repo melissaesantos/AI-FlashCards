@@ -6,7 +6,7 @@
 }
 
 .appBar {
-  background-color: #b599e0;
+  background-color: #985277;
   display: flex;
   color: white; /* Change text color to white for better contrast */
   height: 65px; /* Adjust height as needed */
@@ -18,9 +18,9 @@
 }
 
 .loginButton, .signUpButton, .getstartedbutton {
-  background-color: #b599e0;
+  background-color: #5C374C;
   &:hover {
-    background-color: #b599e0;
+    background-color: #5C374C;
   }
   color: white;
   text-transform: uppercase;
@@ -28,10 +28,10 @@
   
 }
 
-.getstartedbutton{
-  background-color: #802063;
+.getstartedbutton,.buttons{
+  background-color: #5C374C ;
   &:hover {
-    background-color: #802063;
+    background-color: #5C374C;
   }
   color: white;
   text-transform: uppercase;
