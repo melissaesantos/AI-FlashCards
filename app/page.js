@@ -9,9 +9,49 @@ import { AppBar, Container, Toolbar, Typography, Button, Box, Grid } from '@mui/
 
 export default function Home() {
 
-  const handleSubmit = async () => {
+  const handleSubmit1 = async () => {
     const checkoutSession = await fetch('/api/checkout_session', {
-      method: 'POST',
+      method: 'POST1',
+      headers: { 
+        origin: 'http://localhost:3000', 
+      },
+    })
+    
+    const checkoutSessionJson = await checkoutSession.json()
+  
+    const stripe = await getStripe()
+    const {error} = await stripe.redirectToCheckout({
+      sessionId: checkoutSessionJson.id,
+    })
+  
+    if (error) {
+      console.warn(error.message)
+    }
+  }
+
+  const handleSubmit2 = async () => {
+    const checkoutSession = await fetch('/api/checkout_session', {
+      method: 'POST2',
+      headers: { 
+        origin: 'http://localhost:3000', 
+      },
+    })
+    
+    const checkoutSessionJson = await checkoutSession.json()
+  
+    const stripe = await getStripe()
+    const {error} = await stripe.redirectToCheckout({
+      sessionId: checkoutSessionJson.id,
+    })
+  
+    if (error) {
+      console.warn(error.message)
+    }
+  }
+
+  const handleSubmit3 = async () => {
+    const checkoutSession = await fetch('/api/checkout_session', {
+      method: 'POST3',
       headers: { 
         origin: 'http://localhost:3000', 
       },
@@ -140,7 +180,7 @@ export default function Home() {
                 <Button 
                   variant="contained" 
                   sx={{ mt: 2, backgroundColor: '#802063', borderRadius: '20px', padding: '8px 16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', '&:hover': { backgroundColor: '#5C374C', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}
-                  onClick={handleSubmit}
+                  onClick={handleSubmit1}
                 >
                   Purchase Student
                 </Button>
@@ -154,7 +194,7 @@ export default function Home() {
                 <Button 
                   variant="contained" 
                   sx={{ mt: 2, backgroundColor: '#802063', borderRadius: '20px', padding: '8px 16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', '&:hover': { backgroundColor: '#5C374C', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}
-                  onClick={handleSubmit}
+                  onClick={handleSubmit2}
                 >
                   Purchase Basic
                 </Button>
@@ -168,7 +208,7 @@ export default function Home() {
                 <Button 
                   variant="contained" 
                   sx={{ mt: 2, backgroundColor: '#802063', borderRadius: '20px', padding: '8px 16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', '&:hover': { backgroundColor: '#5C374C', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}
-                  onClick={handleSubmit}
+                  onClick={handleSubmit3}
                 >
                   Purchase Pro
                 </Button>
