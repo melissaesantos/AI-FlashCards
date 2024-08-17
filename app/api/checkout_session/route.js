@@ -3,8 +3,8 @@ import Stripe from "stripe";
 
 //we created the stripe object
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-const formatAmountForStripe = (amount)=>{
-    return Math.round*100
+const formatAmountForStripe = (amount) => {
+  return Math.round(amount * 100); // Convert dollars to cents
 }
 
 export async function GET(req) {
