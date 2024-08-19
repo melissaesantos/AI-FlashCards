@@ -12,7 +12,7 @@ Behavioral interview questions: common questions, STAR method, technical and int
 
 Ensure the flashcards are clear, concise, and informative, providing explanations or examples where necessary.
 
-Return in the following JSON format 
+Return in the following JSON/json format 
 {
     "flashcards":[{
         "front":str,
