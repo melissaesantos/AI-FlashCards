@@ -1,73 +1,47 @@
-'use client'
-import Image from 'next/image'
-import getStripe from '@/utils/get-stripe'
+'use client';
+import Image from 'next/image';
+import getStripe from '@/utils/get-stripe';
 import '@/app/globals.css';
-
-import { SignedIn, SignedOut, UserButton,useUser } from '@clerk/nextjs'
-import Head from 'next/head'
-import { AppBar, Container, Toolbar, Typography, Button, Box, Grid } from '@mui/material'
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import Head from 'next/head';
+import { AppBar, Container, Toolbar, Typography, Button, Box, Grid } from '@mui/material';
 
 export default function Home() {
+  const handleSubmit = async (amount) => {
+    console.log('Submitting amount:', amount); // Log the amount
+    try {
+        const checkoutSession = await fetch('/api/checkout_session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'origin': 'http://localhost:3000',
+            },
+            body: JSON.stringify({ amount }), // Pass the amount as part of the request body
+        });
 
-  const handleSubmit1 = async () => {
-    const checkoutSession = await fetch('/api/checkout_session', {
-      method: 'POST1',
-      headers: { 
-        origin: 'http://localhost:3000', 
-      },
-    })
-    
-    const checkoutSessionJson = await checkoutSession.json()
-  
-    const stripe = await getStripe()
-    const {error} = await stripe.redirectToCheckout({
-      sessionId: checkoutSessionJson.id,
-    })
-  
-    if (error) {
-      console.warn(error.message)
-    }
-  }
+        console.log('Response:', checkoutSession);
 
-  const handleSubmit2 = async () => {
-    const checkoutSession = await fetch('/api/checkout_session', {
-      method: 'POST2',
-      headers: { 
-        origin: 'http://localhost:3000', 
-      },
-    })
-    
-    const checkoutSessionJson = await checkoutSession.json()
-  
-    const stripe = await getStripe()
-    const {error} = await stripe.redirectToCheckout({
-      sessionId: checkoutSessionJson.id,
-    })
-  
-    if (error) {
-      console.warn(error.message)
-    }
-  }
+        if (!checkoutSession.ok) {
+            throw new Error(`HTTP error! status: ${checkoutSession.status}`);
+        }
 
-  const handleSubmit3 = async () => {
-    const checkoutSession = await fetch('/api/checkout_session', {
-      method: 'POST3',
-      headers: { 
-        origin: 'http://localhost:3000', 
-      },
-    })
-    
-    const checkoutSessionJson = await checkoutSession.json()
-  
-    const stripe = await getStripe()
-    const {error} = await stripe.redirectToCheckout({
-      sessionId: checkoutSessionJson.id,
-    })
-  
-    if (error) {
-      console.warn(error.message)
+        const checkoutSessionJson = await checkoutSession.json();
+        console.log('Parsed JSON:', checkoutSessionJson);
+
+        const stripe = await getStripe();
+        const { error } = await stripe.redirectToCheckout({
+            sessionId: checkoutSessionJson.id,
+        });
+
+        if (error) {
+            console.warn(error.message);
+        }
+    } catch (err) {
+        console.error('Fetch error:', err);
+        alert('An error occurred while processing your request. Please try again later.');
     }
-  }
+}
+
 
   return (
     <>
@@ -167,56 +141,45 @@ export default function Home() {
           </Grid>
         </Box>
 
-        <Box sx={{ my: 6, textAlign: 'center', display: 'inline-block', borderBottom: '4px solid', borderColor: '#802063', mb: 4 }}>
-          <Typography sx={{ fontWeight: 'bold', display: 'inline-block', borderBottom: '4px solid', borderColor: '#802063', mb: 4 }} variant='h4'>
-            Pricing
+        <Box sx={{ my: 6, textAlign: 'center', display: 'inline-block', borderBottom: '4px solid', borderColor: '#802063' }}>
+          <Typography variant='h4' component='h2' sx={{ fontWeight: 'bold' }}>
+            Plans
           </Typography>
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={4}>
-              <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3 }}>
+        </Box>
+
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3, '&:hover': { boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)' } }}>
                 <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Student Plan</Typography>
                 <Typography variant='h6' sx={{ fontWeight: 'bold' }}>$0 / month</Typography>
                 <Typography>Access to basic flashcard creation and study features.</Typography>
-                <Button 
-                  variant="contained" 
-                  sx={{ mt: 2, backgroundColor: '#802063', borderRadius: '20px', padding: '8px 16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', '&:hover': { backgroundColor: '#5C374C', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}
-                  onClick={handleSubmit1}
-                >
-                  Purchase Student
-                </Button>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3 }}>
+              <Button onClick={() => handleSubmit(0.00)} sx={{ mt: 2, backgroundColor: '#802063', color: 'white', '&:hover': { backgroundColor: '#b599e0', transform: 'translateY(-2px)', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}>
+                Choose Plan
+              </Button>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3, '&:hover': { boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)' } }}>
                 <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Basic Plan</Typography>
                 <Typography variant='h6' sx={{ fontWeight: 'bold' }}>$5 / month</Typography>
                 <Typography>Access to basic flashcard creation and study features.</Typography>
-                <Button 
-                  variant="contained" 
-                  sx={{ mt: 2, backgroundColor: '#802063', borderRadius: '20px', padding: '8px 16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', '&:hover': { backgroundColor: '#5C374C', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}
-                  onClick={handleSubmit2}
-                >
-                  Purchase Basic
-                </Button>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3 }}>
-                <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Pro Plan</Typography>
-                <Typography variant='h6' sx={{ fontWeight: 'bold' }}>$10 / month</Typography>
-                <Typography>Unlock advanced features like AI-powered flashcard creation.</Typography>
-                <Button 
-                  variant="contained" 
-                  sx={{ mt: 2, backgroundColor: '#802063', borderRadius: '20px', padding: '8px 16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', '&:hover': { backgroundColor: '#5C374C', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}
-                  onClick={handleSubmit3}
-                >
-                  Purchase Pro
-                </Button>
-              </Box>
-            </Grid>
+              <Button onClick={() => handleSubmit(5)} sx={{ mt: 2, backgroundColor: '#802063', color: 'white', '&:hover': { backgroundColor: '#b599e0', transform: 'translateY(-2px)', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}>
+                Choose Plan
+              </Button>
+            </Box>
           </Grid>
-        </Box>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3, '&:hover': { boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)' } }}>
+            <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Pro Plan</Typography>
+            <Typography variant='h6' sx={{ fontWeight: 'bold' }}>$10 / month</Typography>
+            <Typography>Unlock advanced features like AI-powered flashcard creation.</Typography>
+              <Button onClick={() => handleSubmit(10)} sx={{ mt: 2, backgroundColor: '#802063', color: 'white', '&:hover': { backgroundColor: '#b599e0', transform: 'translateY(-2px)', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}>
+                Choose Plan
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
       </Container>
     </>
-  )
+  );
 }
