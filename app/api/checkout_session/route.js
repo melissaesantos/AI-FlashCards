@@ -2,9 +2,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 // Create the Stripe object with your secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: '2022-11-15', // Ensure the correct API version
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Function to format the amount for Stripe (convert dollars to cents)
 const formatAmountForStripe = (amount) => {

@@ -1,12 +1,16 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
+import { useState } from "react";
+
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { writeBatch } from "firebase/firestore";
 import {
   Container,
+  Box,
   TextField,
   Button,
   Typography,
-  Box,
   Grid,
   Dialog,
   DialogTitle,
@@ -15,43 +19,40 @@ import {
   DialogActions,
   Card,
   CardContent,
-  IconButton
-} from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
+  IconButton,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function Generate() {
-  const [text, setText] = useState('')
-  const [flashcards, setFlashcards] = useState([])
-  const [setName, setSetName] = useState('')
-  const [dialogOpen, setDialogOpen] = useState(false)
-
-  const handleOpenDialog = () => setDialogOpen(true)
-  const handleCloseDialog = () => setDialogOpen(false)
+  const [flashcards, setFlashcards] = useState([]);
+  const [flipped, setFlipped] = useState([]);
+  const [text, setText] = useState("");
+  const [name, setName] = useState("");
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = async () => {
-    if (!text.trim()) {
-      alert('Please enter some text to generate flashcards.')
-      return
-    }
+    fetch("api/generate", {
+      method: "POST",
+      body: text,
+    })
+      .then((res) => res.json())
+      .then((data) => setFlashcards(data));
+  };
 
-    try {
-      const response = await fetch('/api/generate', {
-        method: 'POST',
-        body: JSON.stringify({ text }),
-        headers: { 'Content-Type': 'application/json' }
-      })
+  const handleCardClick = (id) => {
+    setFlipped((prev) => ({
+      ...prev,
+      [id]: !prev[id], //flip card with specific id
+    }));
+  };
 
-      if (!response.ok) {
-        throw new Error('Failed to generate flashcards')
-      }
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-      const data = await response.json()
-      setFlashcards(data)
-    } catch (error) {
-      console.error('Error generating flashcards:', error)
-      alert('An error occurred while generating flashcards. Please try again.')
-    }
-  }
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const saveFlashcards = async () => {
     if (!setName.trim()) {
@@ -75,7 +76,12 @@ export default function Generate() {
   return (
     <Container maxWidth="md">
       <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom sx={{ textAlign: 'center', fontWeight: 'bold' }}>
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          sx={{ textAlign: "center", fontWeight: "bold" }}
+        >
           Generate Flashcards
         </Typography>
         <TextField
@@ -90,7 +96,12 @@ export default function Generate() {
         />
         <Button
           variant="contained"
-          sx={{ backgroundColor: '#802063', color: 'white', '&:hover': { backgroundColor: '#5C374C' }, borderRadius: '20px' }}
+          sx={{
+            backgroundColor: "#802063",
+            color: "white",
+            "&:hover": { backgroundColor: "#5C374C" },
+            borderRadius: "20px",
+          }}
           onClick={handleSubmit}
           fullWidth
         >
@@ -100,18 +111,99 @@ export default function Generate() {
 
       {flashcards.length > 0 && (
         <Box sx={{ mt: 4 }}>
-          <Typography variant="h5" component="h2" gutterBottom sx={{ fontWeight: 'bold' }}>
+          <Typography
+            variant="h5"
+            component="h2"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+          >
             Generated Flashcards
           </Typography>
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             {flashcards.map((flashcard, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card sx={{ boxShadow: 3, borderRadius: '12px', border: '1px solid #ddd' }}>
-                  <CardContent>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Front:</Typography>
-                    <Typography sx={{ mb: 1 }}>{flashcard.front}</Typography>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Back:</Typography>
-                    <Typography>{flashcard.back}</Typography>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                key={index}
+                onClick={() => handleCardClick(index)}
+              >
+                <Card
+                  sx={{
+                    boxShadow: 3,
+                    borderRadius: "12px",
+                    border: "1px solid #ddd",
+                    perspective: "1000px",
+                  }}
+                >
+                  <CardContent
+                    sx={{
+                      transformStyle: "preserve-3d",
+                      transform: flipped[index]
+                        ? "rotateY(180deg)"
+                        : "rotateY(0deg)",
+                      transition: "transform 0.6s",
+                      position: "relative",
+                      height: "400px",
+                      display: 'flex'
+                    }}
+                  >
+                    {/* Front Side */}
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        width: "100%",
+                        height: "100%",
+                        backfaceVisibility: "hidden",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        padding: 2,
+                        boxSizing: "border-box",
+                        backgroundColor: "white",
+                        borderRadius: "12px",
+                        transform:"rotateY(0deg)"
+                      }}
+                    >
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ fontWeight: "bold" }}
+                      >
+                        Front:
+                      </Typography>
+                      <Typography sx={{ mb: 1 }}>{flashcard.front}</Typography>
+                    </Box>
+
+                    {/* Back Side */}
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        width: "100%",
+                        height: "100%",
+                        backfaceVisibility: "hidden",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        padding: 2,
+                        boxSizing: "border-box",
+                        backgroundColor: "white",
+                        borderRadius: "12px",
+                        transform: "rotateY(180deg)",
+                      }}
+                    >
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ fontWeight: "bold" }}
+                      >
+                        Back:
+                      </Typography>
+                      <Typography>{flashcard.back}</Typography>
+                    </Box>
                   </CardContent>
                 </Card>
               </Grid>
@@ -120,14 +212,14 @@ export default function Generate() {
         </Box>
       )}
 
-      <Dialog open={dialogOpen} onClose={handleCloseDialog}>
-        <DialogTitle sx={{ backgroundColor: '#802063', color: 'white' }}>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle sx={{ backgroundColor: "#802063", color: "white" }}>
           Save Flashcard Set
           <IconButton
             edge="end"
             color="inherit"
-            onClick={handleCloseDialog}
-            sx={{ position: 'absolute', right: 8, top: 8 }}
+            onClick={handleClose}
+            sx={{ position: "absolute", right: 8, top: 8 }}
           >
             <CloseIcon />
           </IconButton>
@@ -142,20 +234,27 @@ export default function Generate() {
             label="Set Name"
             type="text"
             fullWidth
-            value={setName}
-            onChange={(e) => setSetName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             variant="outlined"
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} sx={{ color: '#802063' }}>
+          <Button onClick={handleClose} sx={{ color: "#802063" }}>
             Cancel
           </Button>
-          <Button onClick={saveFlashcards} sx={{ backgroundColor: '#802063', color: 'white', '&:hover': { backgroundColor: '#5C374C' } }}>
+          <Button
+            onClick={saveFlashcards}
+            sx={{
+              backgroundColor: "#802063",
+              color: "white",
+              "&:hover": { backgroundColor: "#5C374C" },
+            }}
+          >
             Save
           </Button>
         </DialogActions>
       </Dialog>
     </Container>
-  )
+  );
 }

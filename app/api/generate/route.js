@@ -11,6 +11,7 @@ System design: scalability, availability, performance, distributed systems
 Behavioral interview questions: common questions, STAR method, technical and interpersonal skills 
 
 Ensure the flashcards are clear, concise, and informative, providing explanations or examples where necessary.
+Only generate 9 flashcards.
 
 Return in the following JSON/json format 
 {
@@ -37,14 +38,16 @@ export async function POST(req) {
         { role: 'system', content: systemPrompt },
         { role: 'user', content: data },
       ],
-      model: 'gpt-4o',
+      model: 'gpt-4o-mini',
     });
+
+    console.log()
 
     // Parse response
     const flashcards = JSON.parse(completion.choices[0].message.content);
 
     // Return the flashcards in the expected format
-    return NextResponse.json(flashcards);
+    return NextResponse.json(flashcards.flashcards);
   } catch (error) {
     console.error('Error generating flashcards:', error);
     return NextResponse.error();
