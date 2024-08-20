@@ -1,26 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-import { writeBatch } from "firebase/firestore";
-import {
-  Container,
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Grid,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Card,
-  CardContent,
-  IconButton,
-} from "@mui/material";
+import { Container, Box, TextField, Button, Typography, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Card, CardContent, IconButton, useMediaQuery } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 export default function Generate() {
@@ -55,23 +36,23 @@ export default function Generate() {
   };
 
   const saveFlashcards = async () => {
-    if (!setName.trim()) {
-      alert('Please enter a name for your flashcard set.')
-      return
+    if (!name.trim()) {
+      alert("Please enter a name for your flashcard set.");
+      return;
     }
 
     try {
-      // Mock saving function (replace with actual Firestore logic)
-      console.log('Saving flashcards', { name: setName, flashcards })
-      
-      alert('Flashcards saved successfully!')
-      handleCloseDialog()
-      setSetName('')
+      console.log("Saving flashcards", { name, flashcards });
+      alert("Flashcards saved successfully!");
+      handleClose();
+      setName("");
     } catch (error) {
-      console.error('Error saving flashcards:', error)
-      alert('An error occurred while saving flashcards. Please try again.')
+      console.error("Error saving flashcards:", error);
+      alert("An error occurred while saving flashcards. Please try again.");
     }
-  }
+  };
+
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   return (
     <Container maxWidth="md">
@@ -80,7 +61,7 @@ export default function Generate() {
           variant="h4"
           component="h1"
           gutterBottom
-          sx={{ textAlign: "center", fontWeight: "bold" }}
+          sx={{ textAlign: "center", fontWeight: "bold", color: "#333" }}
         >
           Generate Flashcards
         </Typography>
@@ -115,11 +96,11 @@ export default function Generate() {
             variant="h5"
             component="h2"
             gutterBottom
-            sx={{ fontWeight: "bold" }}
+            sx={{ fontWeight: "bold", color: "#333" }}
           >
             Generated Flashcards
           </Typography>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} justifyContent="center">
             {flashcards.map((flashcard, index) => (
               <Grid
                 item
@@ -133,8 +114,12 @@ export default function Generate() {
                   sx={{
                     boxShadow: 3,
                     borderRadius: "12px",
-                    border: "1px solid #ddd",
                     perspective: "1000px",
+                    height: "250px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
                   }}
                 >
                   <CardContent
@@ -145,8 +130,12 @@ export default function Generate() {
                         : "rotateY(0deg)",
                       transition: "transform 0.6s",
                       position: "relative",
-                      height: "400px",
-                      display: 'flex'
+                      width: "100%",
+                      height: "100%",
+                      textAlign: "center",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     {/* Front Side */}
@@ -162,19 +151,19 @@ export default function Generate() {
                         flexDirection: "column",
                         padding: 2,
                         boxSizing: "border-box",
-                        backgroundColor: "white",
+                        backgroundColor: "#f5f5f5",
                         borderRadius: "12px",
-                        transform:"rotateY(0deg)"
+                        transform: "rotateY(0deg)",
                       }}
                     >
                       <Typography
                         variant="h6"
                         component="div"
-                        sx={{ fontWeight: "bold" }}
+                        sx={{ fontWeight: "bold", color: "#333" }}
                       >
-                        Front:
+                        Front
                       </Typography>
-                      <Typography sx={{ mb: 1 }}>{flashcard.front}</Typography>
+                      <Typography sx={{ mt: 2 }}>{flashcard.front}</Typography>
                     </Box>
 
                     {/* Back Side */}
@@ -190,7 +179,7 @@ export default function Generate() {
                         flexDirection: "column",
                         padding: 2,
                         boxSizing: "border-box",
-                        backgroundColor: "white",
+                        backgroundColor: "#e0e0e0",
                         borderRadius: "12px",
                         transform: "rotateY(180deg)",
                       }}
@@ -198,11 +187,11 @@ export default function Generate() {
                       <Typography
                         variant="h6"
                         component="div"
-                        sx={{ fontWeight: "bold" }}
+                        sx={{ fontWeight: "bold", color: "#333" }}
                       >
-                        Back:
+                        Back
                       </Typography>
-                      <Typography>{flashcard.back}</Typography>
+                      <Typography sx={{ mt: 2 }}>{flashcard.back}</Typography>
                     </Box>
                   </CardContent>
                 </Card>

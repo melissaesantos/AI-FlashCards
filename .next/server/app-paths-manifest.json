@@ -1,5 +1,5 @@
 {
-  "/result/page": "app/result/page.js",
-  "/api/checkout_session/route": "app/api/checkout_session/route.js",
+  "/generate/page": "app/generate/page.js",
+  "/api/generate/route": "app/api/generate/route.js",
   "/page": "app/page.js"
 }
