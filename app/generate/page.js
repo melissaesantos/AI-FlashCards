@@ -1,7 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { Container, Box, TextField, Button, Typography, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Card, CardContent, IconButton, useMediaQuery } from "@mui/material";
+import {
+  Container,
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Card,
+  CardContent,
+  IconButton,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 export default function Generate() {
@@ -36,23 +51,23 @@ export default function Generate() {
   };
 
   const saveFlashcards = async () => {
-    if (!name.trim()) {
-      alert("Please enter a name for your flashcard set.");
-      return;
+    if (!setName.trim()) {
+      alert('Please enter a name for your flashcard set.')
+      return
     }
 
     try {
-      console.log("Saving flashcards", { name, flashcards });
-      alert("Flashcards saved successfully!");
-      handleClose();
-      setName("");
+      // Mock saving function (replace with actual Firestore logic)
+      console.log('Saving flashcards', { name: setName, flashcards })
+      
+      alert('Flashcards saved successfully!')
+      handleCloseDialog()
+      setSetName('')
     } catch (error) {
-      console.error("Error saving flashcards:", error);
-      alert("An error occurred while saving flashcards. Please try again.");
+      console.error('Error saving flashcards:', error)
+      alert('An error occurred while saving flashcards. Please try again.')
     }
-  };
-
-  const isMobile = useMediaQuery("(max-width:600px)");
+  }
 
   return (
     <Container maxWidth="md">
@@ -61,7 +76,7 @@ export default function Generate() {
           variant="h4"
           component="h1"
           gutterBottom
-          sx={{ textAlign: "center", fontWeight: "bold", color: "#333" }}
+          sx={{ textAlign: "center", fontWeight: "bold" }}
         >
           Generate Flashcards
         </Typography>
@@ -96,7 +111,7 @@ export default function Generate() {
             variant="h5"
             component="h2"
             gutterBottom
-            sx={{ fontWeight: "bold", color: "#333" }}
+            sx={{ fontWeight: "bold" }}
           >
             Generated Flashcards
           </Typography>
@@ -114,12 +129,8 @@ export default function Generate() {
                   sx={{
                     boxShadow: 3,
                     borderRadius: "12px",
+                    border: "1px solid #ddd",
                     perspective: "1000px",
-                    height: "250px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
                   }}
                 >
                   <CardContent
@@ -130,12 +141,10 @@ export default function Generate() {
                         : "rotateY(0deg)",
                       transition: "transform 0.6s",
                       position: "relative",
-                      width: "100%",
-                      height: "100%",
-                      textAlign: "center",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      height: "400px",
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
                     }}
                   >
                     {/* Front Side */}
@@ -151,19 +160,20 @@ export default function Generate() {
                         flexDirection: "column",
                         padding: 2,
                         boxSizing: "border-box",
-                        backgroundColor: "#f5f5f5",
+                        backgroundColor: "white",
                         borderRadius: "12px",
-                        transform: "rotateY(0deg)",
+                        transform:"rotateY(0deg)",
+                        overflowY: "auto",
                       }}
                     >
                       <Typography
                         variant="h6"
                         component="div"
-                        sx={{ fontWeight: "bold", color: "#333" }}
+                        sx={{ fontWeight: "bold" }}
                       >
-                        Front
+                        Front:
                       </Typography>
-                      <Typography sx={{ mt: 2 }}>{flashcard.front}</Typography>
+                      <Typography sx={{ mb: 1 }}>{flashcard.front}</Typography>
                     </Box>
 
                     {/* Back Side */}
@@ -179,19 +189,20 @@ export default function Generate() {
                         flexDirection: "column",
                         padding: 2,
                         boxSizing: "border-box",
-                        backgroundColor: "#e0e0e0",
+                        backgroundColor: "white",
                         borderRadius: "12px",
                         transform: "rotateY(180deg)",
+                        overflowY: "auto", // Added scroll functionality
                       }}
                     >
                       <Typography
                         variant="h6"
                         component="div"
-                        sx={{ fontWeight: "bold", color: "#333" }}
+                        sx={{ fontWeight: "bold" }}
                       >
-                        Back
+                        Back:
                       </Typography>
-                      <Typography sx={{ mt: 2 }}>{flashcard.back}</Typography>
+                      <Typography>{flashcard.back}</Typography>
                     </Box>
                   </CardContent>
                 </Card>
