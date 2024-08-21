@@ -76,8 +76,8 @@ export default function Generate() {
   };
 
   return (
-    <Container maxWidth="md" sx={{  background: 'linear-gradient(90deg, #BC9CB0 30%, #802063 70%)', minHeight: "100vh", py: 4 } }>
-      <Box sx={{ my: 4 , background: 'linear-gradient(90deg, #BC9CB0 30%, #802063 70%)'}}>
+    <Container maxWidth="md" >
+      <Box >
         <Typography
           variant="h4"
           component="h1"

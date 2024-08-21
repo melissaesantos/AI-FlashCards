@@ -198,9 +198,9 @@ export default function Home() {
           </Grid>
           <Grid item xs={12} md={4}>
             <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3, '&:hover': { boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)' } }}>
-              <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Pro Plan</Typography>
-              <Typography variant='h6' sx={{ fontWeight: 'bold' }}>$10 / month</Typography>
-              <Typography>Unlock advanced features like AI-powered flashcard creation.</Typography>
+              <Typography color = '#FEF9FF  ' variant='h5' sx={{ fontWeight: 'bold' }}>Pro Plan</Typography>
+              <Typography color = '#FEF9FF  ' variant='h6' sx={{ fontWeight: 'bold' }}>$10 / month</Typography>
+              <Typography color = '#FEF9FF  '>Unlock advanced features like AI-powered flashcard creation.</Typography>
               <Button onClick={() => handleSubmit(10)} sx={{ mt: 2, backgroundColor: '#802063', color: 'white', '&:hover': { backgroundColor: '#b599e0', transform: 'translateY(-2px)', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}>
                 Choose Plan
               </Button>
