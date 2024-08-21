@@ -25,20 +25,26 @@ export default function Generate() {
   const [text, setText] = useState("");
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleSubmit = async () => {
+    setLoading(true); // Start loading
     fetch("api/generate", {
       method: "POST",
       body: text,
     })
       .then((res) => res.json())
-      .then((data) => setFlashcards(data));
+      .then((data) => {
+        setFlashcards(data);
+        setLoading(false); // Stop loading
+      })
+      .catch(() => setLoading(false)); // Stop loading on error
   };
 
   const handleCardClick = (id) => {
     setFlipped((prev) => ({
       ...prev,
-      [id]: !prev[id], //flip card with specific id
+      [id]: !prev[id], // Flip card with specific id
     }));
   };
 
@@ -52,22 +58,22 @@ export default function Generate() {
 
   const saveFlashcards = async () => {
     if (!setName.trim()) {
-      alert('Please enter a name for your flashcard set.')
-      return
+      alert("Please enter a name for your flashcard set.");
+      return;
     }
 
     try {
       // Mock saving function (replace with actual Firestore logic)
-      console.log('Saving flashcards', { name: setName, flashcards })
-      
-      alert('Flashcards saved successfully!')
-      handleCloseDialog()
-      setSetName('')
+      console.log("Saving flashcards", { name: setName, flashcards });
+
+      alert("Flashcards saved successfully!");
+      handleCloseDialog();
+      setSetName("");
     } catch (error) {
-      console.error('Error saving flashcards:', error)
-      alert('An error occurred while saving flashcards. Please try again.')
+      console.error("Error saving flashcards:", error);
+      alert("An error occurred while saving flashcards. Please try again.");
     }
-  }
+  };
 
   return (
     <Container maxWidth="md">
@@ -105,111 +111,122 @@ export default function Generate() {
         </Button>
       </Box>
 
-      {flashcards.length > 0 && (
-        <Box sx={{ mt: 4 }}>
-          <Typography
-            variant="h5"
-            component="h2"
-            gutterBottom
-            sx={{ fontWeight: "bold" }}
-          >
-            Generated Flashcards
-          </Typography>
-          <Grid container spacing={3} justifyContent="center">
-            {flashcards.map((flashcard, index) => (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                key={index}
-                onClick={() => handleCardClick(index)}
-              >
-                <Card
-                  sx={{
-                    boxShadow: 3,
-                    borderRadius: "12px",
-                    border: "1px solid #ddd",
-                    perspective: "1000px",
-                  }}
+      {loading ? (
+        <Box sx={{ textAlign: "center", mt: 4 }}>
+          <Typography variant="h6">Generating flashcards...</Typography>
+          {/* Replace with a spinner or progress bar if you prefer */}
+        </Box>
+      ) : (
+        flashcards.length > 0 && (
+          <Box sx={{ mt: 4 }}>
+            <Typography
+              variant="h5"
+              component="h2"
+              gutterBottom
+              sx={{ fontWeight: "bold", textAlign: "center" }}
+            >
+              Generated Flashcards
+            </Typography>
+            <Grid container spacing={3} justifyContent="center">
+              {flashcards.map((flashcard, index) => (
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  key={index}
+                  onClick={() => handleCardClick(index)}
                 >
-                  <CardContent
+                  <Card
                     sx={{
-                      transformStyle: "preserve-3d",
-                      transform: flipped[index]
-                        ? "rotateY(180deg)"
-                        : "rotateY(0deg)",
-                      transition: "transform 0.6s",
-                      position: "relative",
-                      height: "400px",
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
+                      boxShadow: 3,
+                      borderRadius: "12px",
+                      border: "1px solid #ddd",
+                      perspective: "1000px",
                     }}
                   >
-                    {/* Front Side */}
-                    <Box
+                    <CardContent
                       sx={{
-                        position: "absolute",
-                        width: "100%",
-                        height: "100%",
-                        backfaceVisibility: "hidden",
+                        transformStyle: "preserve-3d",
+                        transform: flipped[index]
+                          ? "rotateY(180deg)"
+                          : "rotateY(0deg)",
+                        transition: "transform 0.6s",
+                        position: "relative",
+                        height: "400px",
                         display: "flex",
-                        alignItems: "center",
                         justifyContent: "center",
-                        flexDirection: "column",
-                        padding: 2,
-                        boxSizing: "border-box",
-                        backgroundColor: "white",
-                        borderRadius: "12px",
-                        transform:"rotateY(0deg)",
-                        overflowY: "auto",
+                        alignItems: "center",
                       }}
                     >
-                      <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ fontWeight: "bold" }}
+                      {/* Front Side */}
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          width: "100%",
+                          height: "100%",
+                          backfaceVisibility: "hidden",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexDirection: "column",
+                          padding: 2,
+                          boxSizing: "border-box",
+                          backgroundColor: "white",
+                          borderRadius: "12px",
+                          transform: "rotateY(0deg)",
+                          overflowY: "auto",
+                          textAlign: "center", // Center text inside the card
+                        }}
                       >
-                        Front:
-                      </Typography>
-                      <Typography sx={{ mb: 1 }}>{flashcard.front}</Typography>
-                    </Box>
+                        <Typography
+                          variant="h6"
+                          component="div"
+                          sx={{ fontWeight: "bold" }}
+                        >
+                          Front:
+                        </Typography>
+                        <Typography sx={{ mb: 1 }}>
+                          {flashcard.front}
+                        </Typography>
+                      </Box>
 
-                    {/* Back Side */}
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        width: "100%",
-                        height: "100%",
-                        backfaceVisibility: "hidden",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexDirection: "column",
-                        padding: 2,
-                        boxSizing: "border-box",
-                        backgroundColor: "white",
-                        borderRadius: "12px",
-                        transform: "rotateY(180deg)",
-                        overflowY: "auto", // Added scroll functionality
-                      }}
-                    >
-                      <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ fontWeight: "bold" }}
+                      {/* Back Side */}
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          width: "100%",
+                          height: "100%",
+                          backfaceVisibility: "hidden",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexDirection: "column",
+                          padding: 2,
+                          boxSizing: "border-box",
+                          backgroundColor: "white",
+                          borderRadius: "12px",
+                          transform: "rotateY(180deg)",
+                          overflowY: "auto",
+                          textAlign: "center", // Center text inside the card
+                        }}
                       >
-                        Back:
-                      </Typography>
-                      <Typography>{flashcard.back}</Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+                        <Typography
+                          variant="h6"
+                          component="div"
+                          sx={{ fontWeight: "bold" }}
+                        >
+                          Back:
+                        </Typography>
+                        <Typography>{flashcard.back}</Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        )
       )}
 
       <Dialog open={open} onClose={handleClose}>
