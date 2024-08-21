@@ -4,6 +4,11 @@
   padding: 0;
   margin: 0;
 }
+body {
+  background: linear-gradient(90deg, #985277, #b599e0);
+  margin: 0;
+  padding: 0;
+}
 
 .appBar {
   background: linear-gradient(90deg, #985277, #b599e0);

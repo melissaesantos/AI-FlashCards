@@ -76,13 +76,13 @@ export default function Generate() {
   };
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ my: 4 }}>
+    <Container maxWidth="md" sx={{  background: 'linear-gradient(90deg, #BC9CB0 30%, #802063 70%)', minHeight: "100vh", py: 4 } }>
+      <Box sx={{ my: 4 , background: 'linear-gradient(90deg, #BC9CB0 30%, #802063 70%)'}}>
         <Typography
           variant="h4"
           component="h1"
           gutterBottom
-          sx={{ textAlign: "center", fontWeight: "bold" }}
+          sx={{ textAlign: "center", fontWeight: "bold", color: "white" }}
         >
           Generate Flashcards
         </Typography>

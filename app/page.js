@@ -118,8 +118,8 @@ export default function Home() {
 
       <Container maxWidth="lg">
         <Box sx={{ textAlign: 'center', my: 4 }}>
-          <Typography variant="h2">Welcome to CodeCard</Typography>
-          <Typography variant="h5" sx={{ mb: 2 }}>The easiest way to make flashcards to ace your coding interviews!</Typography>
+          <Typography color = 'white' variant="h2">Welcome to CodeCard</Typography>
+          <Typography color = 'white' variant="h5" sx={{ mb: 2 }}>The easiest way to make flashcards to ace your coding interviews!</Typography>
           <Button 
             onClick={handleRedirect} // Use handleRedirect to check authentication status
             variant="contained" 
@@ -143,34 +143,34 @@ export default function Home() {
 
         <Box sx={{ my: 6 }}>
           <Box sx={{ display: 'inline-block', borderBottom: '4px solid', borderColor: '#802063', mb: 4 }}>
-            <Typography variant='h4' component='h2' sx={{ fontWeight: 'bold' }}>
+            <Typography color = '#FEF9FF  ' variant='h4' component='h2' sx={{ fontWeight: 'bold' }}>
               Features
             </Typography>
           </Box>
           <Grid container spacing={4}>
             <Grid item xs={12} md={4}>
               <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3, '&:hover': { boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)' } }}>
-                <Typography variant='h6' sx={{ fontWeight: 'bold' }}>Easy Text Input</Typography>
-                <Typography>Simply input your text and let our software do the rest. Creating flashcards has never been easier!</Typography>
+                <Typography color = 'white' variant='h6' sx={{ fontWeight: 'bold' }}>Easy Text Input</Typography>
+                <Typography color = 'white' >Simply input your text and let our software do the rest. Creating flashcards has never been easier!</Typography>
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
               <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3, '&:hover': { boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)' } }}>
-                <Typography variant='h6' sx={{ fontWeight: 'bold' }}>Smart Flashcard</Typography>
-                <Typography>Our AI intelligently breaks down your text into concise flashcards, perfect for studying.</Typography>
+                <Typography color = 'white' variant='h6' sx={{ fontWeight: 'bold' }}>Smart Flashcard</Typography>
+                <Typography color = 'white'>Our AI intelligently breaks down your text into concise flashcards, perfect for studying.</Typography>
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
               <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3, '&:hover': { boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)' } }}>
-                <Typography variant='h6' sx={{ fontWeight: 'bold' }}>Accessible Anywhere</Typography>
-                <Typography>Access your flashcards from any device! You can study on the go!</Typography>
+                <Typography color = '#FEF9FF  ' variant='h6' sx={{ fontWeight: 'bold' }}>Accessible Anywhere</Typography>
+                <Typography color = '#FEF9FF  '>Access your flashcards from any device! You can study on the go!</Typography>
               </Box>
             </Grid>
           </Grid>
         </Box>
 
         <Box sx={{ my: 6, textAlign: 'center', display: 'inline-block', borderBottom: '4px solid', borderColor: '#802063' }}>
-          <Typography variant='h4' component='h2' sx={{ fontWeight: 'bold' }}>
+          <Typography color = '#FEF9FF  ' variant='h4' component='h2' sx={{ fontWeight: 'bold' }}>
             Plans
           </Typography>
         </Box>
@@ -178,9 +178,9 @@ export default function Home() {
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
             <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3, '&:hover': { boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)' } }}>
-              <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Student Plan</Typography>
-              <Typography variant='h6' sx={{ fontWeight: 'bold' }}>$0 / month</Typography>
-              <Typography>Access to basic flashcard creation and study features.</Typography>
+              <Typography  color = '#FEF9FF  ' variant='h5' sx={{ fontWeight: 'bold' }}>Student Plan</Typography>
+              <Typography   color = '#FEF9FF  ' variant='h6' sx={{ fontWeight: 'bold' }}>$0 / month</Typography>
+              <Typography color = '#FEF9FF  '>Access to basic flashcard creation and study features.</Typography>
               <Button onClick={() => handleSubmit(0.00)} sx={{ mt: 2, backgroundColor: '#802063', color: 'white', '&:hover': { backgroundColor: '#b599e0', transform: 'translateY(-2px)', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}>
                 Choose Plan
               </Button>
@@ -188,9 +188,9 @@ export default function Home() {
           </Grid>
           <Grid item xs={12} md={4}>
             <Box sx={{ p: 3, border: '1px solid #ddd', borderRadius: '8px', boxShadow: 3, '&:hover': { boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)' } }}>
-              <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Basic Plan</Typography>
-              <Typography variant='h6' sx={{ fontWeight: 'bold' }}>$5 / month</Typography>
-              <Typography>Access to basic flashcard creation and study features.</Typography>
+              <Typography color = '#FEF9FF  ' variant='h5' sx={{ fontWeight: 'bold' }}>Basic Plan</Typography>
+              <Typography  color = '#FEF9FF  ' variant='h6' sx={{ fontWeight: 'bold' }}>$5 / month</Typography>
+              <Typography color = '#FEF9FF  '>Access to basic flashcard creation and study features.</Typography>
               <Button onClick={() => handleSubmit(5)} sx={{ mt: 2, backgroundColor: '#802063', color: 'white', '&:hover': { backgroundColor: '#b599e0', transform: 'translateY(-2px)', boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)' } }}>
                 Choose Plan
               </Button>
