@@ -225,6 +225,22 @@ export default function Generate() {
                 </Grid>
               ))}
             </Grid>
+            {flashcards.length > 0 && (
+            <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+              <Button 
+                variant="contained"
+                sx={{
+                  backgroundColor: "#802063",
+                  color: "white",
+                  "&:hover": { backgroundColor: "#5C374C" },
+                  borderRadius: "20px",
+                }}
+                onClick={handleOpen}
+                fullWidth>
+                Save Flashcards
+              </Button>
+            </Box>
+          )}
           </Box>
         )
       )}
