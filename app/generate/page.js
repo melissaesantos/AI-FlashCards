@@ -57,18 +57,18 @@ export default function Generate() {
   };
 
   const saveFlashcards = async () => {
-    if (!setName.trim()) {
+    if (!name.trim()) {
       alert("Please enter a name for your flashcard set.");
       return;
     }
 
     try {
       // Mock saving function (replace with actual Firestore logic)
-      console.log("Saving flashcards", { name: setName, flashcards });
+      console.log("Saving flashcards", { name: name, flashcards });
 
       alert("Flashcards saved successfully!");
-      handleCloseDialog();
-      setSetName("");
+      handleClose();
+      setName(""); // Clear the name input after saving
     } catch (error) {
       console.error("Error saving flashcards:", error);
       alert("An error occurred while saving flashcards. Please try again.");
@@ -76,8 +76,8 @@ export default function Generate() {
   };
 
   return (
-    <Container maxWidth="md" >
-      <Box >
+    <Container maxWidth="md">
+      <Box>
         <Typography
           variant="h4"
           component="h1"
@@ -256,21 +256,27 @@ export default function Generate() {
             variant="outlined"
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} sx={{ color: "#802063" }}>
-            Cancel
-          </Button>
-          <Button
-            onClick={saveFlashcards}
-            sx={{
-              backgroundColor: "#802063",
-              color: "white",
-              "&:hover": { backgroundColor: "#5C374C" },
-            }}
-          >
-            Save
-          </Button>
-        </DialogActions>
+        <DialogActions
+  sx={{ border: '1px solid blue', padding: 2 }}
+>
+  <Button
+    onClick={handleClose}
+    sx={{ color: "#802063" }}
+  >
+    Cancel
+  </Button>
+  <Button
+    onClick={saveFlashcards}
+    sx={{
+      backgroundColor: "#802063",
+      color: "white",
+      "&:hover": { backgroundColor: "#5C374C" },
+    }}
+  >
+    Save
+  </Button>
+</DialogActions>
+
       </Dialog>
     </Container>
   );
