@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Add this at the top
 
 import { useState, useEffect } from "react";
 import {
@@ -22,8 +22,11 @@ import {
   ListItem,
   ListItemText,
   CircularProgress,
+  Chip,AppBar,Toolbar
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import SaveIcon from "@mui/icons-material/Save";
+import MenuIcon from "@mui/icons-material/Menu";
+
 
 export default function Generate() {
   const [flashcards, setFlashcards] = useState([]);
@@ -31,13 +34,13 @@ export default function Generate() {
   const [text, setText] = useState("");
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
   const [savedFlashcards, setSavedFlashcards] = useState([]);
   const [selectedSet, setSelectedSet] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleSubmit = async () => {
-    setLoading(true); // Start loading
+    setLoading(true);
     fetch("api/generate", {
       method: "POST",
       body: text,
@@ -45,15 +48,15 @@ export default function Generate() {
       .then((res) => res.json())
       .then((data) => {
         setFlashcards(data);
-        setLoading(false); // Stop loading
+        setLoading(false);
       })
-      .catch(() => setLoading(false)); // Stop loading on error
+      .catch(() => setLoading(false));
   };
 
   const handleCardClick = (id) => {
     setFlipped((prev) => ({
       ...prev,
-      [id]: !prev[id], // Flip card with specific id
+      [id]: !prev[id],
     }));
   };
 
@@ -72,14 +75,13 @@ export default function Generate() {
     }
 
     try {
-      // Mock saving function (replace with actual Firestore logic)
       const newSavedFlashcards = [...savedFlashcards, { name, flashcards }];
       setSavedFlashcards(newSavedFlashcards);
 
       alert("Flashcards saved successfully!");
       handleClose();
-      setName(""); // Clear the name input after saving
-      setFlashcards([]); // Clear generated flashcards after saving
+      setName("");
+      setFlashcards([]);
     } catch (error) {
       console.error("Error saving flashcards:", error);
       alert("An error occurred while saving flashcards. Please try again.");
@@ -102,20 +104,44 @@ export default function Generate() {
   }, []);
 
   return (
-    <Container maxWidth="lg" sx={{ display: "flex", flexDirection: "row" }}>
+    <Container maxWidth="lg" sx={{ display: "flex", flexDirection: "column" }}>
+      <AppBar position="static" sx={{ backgroundColor: "#985277" }}>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={toggleDrawer(true)}
+            sx={{ marginRight: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            Flashcard Generator
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
       <Drawer
         anchor="left"
         open={drawerOpen}
         onClose={toggleDrawer(false)}
-        sx={{ width: 250, flexShrink: 0 }}
+        sx={{
+          width: 250,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: 250,
+            backgroundColor: "#985277",
+            color: "white",
+            borderRight: "1px solid #ddd",
+          },
+        }}
       >
-        <Box
-          sx={{ width: 250, backgroundColor: "#985277", color: "white" }}
-        >
-          <Typography variant="h6" sx={{ padding: 2, textAlign: "center" }}>
+        <Box sx={{ padding: 2 }}>
+          <Typography variant="h6" sx={{ paddingBottom: 2, textAlign: "center" }}>
             Saved Flashcards
           </Typography>
-          <Divider />
+          <Divider sx={{ backgroundColor: "#ddd", marginBottom: 2 }} />
           <List>
             {savedFlashcards.length > 0 ? (
               savedFlashcards.map((set, index) => (
@@ -131,13 +157,14 @@ export default function Generate() {
           </List>
         </Box>
       </Drawer>
-      <Box sx={{ flex: 1 }}>
-        <Box sx={{ margin: "16px 0" }}>
+
+      <Box sx={{ flex: 1, padding: 2 }}>
+        <Box sx={{ marginBottom: 2 }}>
           <Typography
             variant="h4"
             component="h1"
             gutterBottom
-            sx={{ textAlign: "center", fontWeight: "bold", color: "white" }}
+            sx={{ textAlign: "center", fontWeight: "bold", color: "#802063" }}
           >
             Generate Flashcards
           </Typography>
@@ -178,7 +205,7 @@ export default function Generate() {
                 variant="h5"
                 component="h2"
                 gutterBottom
-                sx={{ fontWeight: "bold", textAlign: "center" }}
+                sx={{ fontWeight: "bold", textAlign: "center", color: "#802063" }}
               >
                 Generated Flashcards
               </Typography>
@@ -231,13 +258,13 @@ export default function Generate() {
                             borderRadius: "12px",
                             transform: "rotateY(0deg)",
                             overflowY: "auto",
-                            textAlign: "center", // Center text inside the card
+                            textAlign: "center",
                           }}
                         >
                           <Typography
                             variant="h6"
                             component="div"
-                            sx={{ fontWeight: "bold" }}
+                            sx={{ fontWeight: "bold", color: "#802063" }}
                           >
                             Front:
                           </Typography>
@@ -263,13 +290,13 @@ export default function Generate() {
                             borderRadius: "12px",
                             transform: "rotateY(180deg)",
                             overflowY: "auto",
-                            textAlign: "center", // Center text inside the card
+                            textAlign: "center",
                           }}
                         >
                           <Typography
                             variant="h6"
                             component="div"
-                            sx={{ fontWeight: "bold" }}
+                            sx={{ fontWeight: "bold", color: "#802063" }}
                           >
                             Back:
                           </Typography>
@@ -291,7 +318,6 @@ export default function Generate() {
                       borderRadius: "20px",
                     }}
                     onClick={handleOpen}
-                    fullWidth
                   >
                     Save Flashcards
                   </Button>
@@ -302,56 +328,29 @@ export default function Generate() {
         )}
 
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle sx={{ backgroundColor: "#802063", color: "white" }}>
-            Save Flashcard Set
-            <IconButton
-              edge="end"
-              color="inherit"
-              onClick={handleClose}
-              sx={{ position: "absolute", right: 8, top: 8 }}
-            >
-              <CloseIcon />
-            </IconButton>
-          </DialogTitle>
+          <DialogTitle>Save Flashcards</DialogTitle>
           <DialogContent>
-            <DialogContentText sx={{ color: "white" }}>
-              Please enter a name for your flashcard set.
+            <DialogContentText>
+              Enter a name for your flashcard set to save it.
             </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
-              label="Set Name"
+              id="name"
+              label="Flashcard Set Name"
               type="text"
               fullWidth
+              variant="outlined"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              variant="outlined"
-              sx={{ mb: 2 }}
             />
           </DialogContent>
-          <DialogActions
-            sx={{ backgroundColor: "#985277", padding: 2 }}
-          >
-            <Button
-              onClick={handleClose}
-              sx={{ color: "white" }}
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={saveFlashcards}
-              sx={{
-                backgroundColor: "#802063",
-                color: "white",
-                "&:hover": { backgroundColor: "#5C374C" },
-              }}
-            >
-              Save
-            </Button>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={saveFlashcards}>Save</Button>
           </DialogActions>
         </Dialog>
       </Box>
     </Container>
   );
 }
-
