@@ -32,8 +32,8 @@ export default function Generate() {
   const [flashcards, setFlashcards] = useState([]);
   const [flipped, setFlipped] = useState([]);
   const [text, setText] = useState("");
-  const [name, setName] = useState("");
-  const [open, setOpen] = useState(false);
+  const [name, setName] = useState(""); // setName, setSetName
+  const [open, setOpen] = useState(false); // dialogOpen, setDialogOpen
   const [loading, setLoading] = useState(false);
   const [savedFlashcards, setSavedFlashcards] = useState([]);
   const [selectedSet, setSelectedSet] = useState(null);
